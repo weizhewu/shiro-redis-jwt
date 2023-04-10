@@ -3,7 +3,7 @@ package com.waltz.springshirostudy.filter;
 import com.baomidou.mybatisplus.core.toolkit.CollectionUtils;
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.waltz.springshirostudy.common.result.ResponseResult;
-import com.waltz.springshirostudy.constant.JwtToken;
+import com.waltz.springshirostudy.entity.JwtToken;
 import com.waltz.springshirostudy.constant.RedisConstant;
 import com.waltz.springshirostudy.entity.LoginParam;
 import com.waltz.springshirostudy.entity.UserInfo;

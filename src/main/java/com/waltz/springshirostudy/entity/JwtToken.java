@@ -1,4 +1,4 @@
-package com.waltz.springshirostudy.constant;
+package com.waltz.springshirostudy.entity;
 
 import org.apache.shiro.authc.AuthenticationToken;
 

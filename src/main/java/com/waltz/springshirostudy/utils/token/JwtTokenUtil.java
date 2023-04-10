@@ -2,7 +2,7 @@ package com.waltz.springshirostudy.utils.token;
 
 
 import com.waltz.springshirostudy.constant.AuthConstant;
-import com.waltz.springshirostudy.constant.JwtToken;
+import com.waltz.springshirostudy.entity.JwtToken;
 import com.waltz.springshirostudy.constant.RedisConstant;
 import com.waltz.springshirostudy.service.RedisService;
 import io.jsonwebtoken.*;
