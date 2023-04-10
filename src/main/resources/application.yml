@@ -43,4 +43,4 @@ logging:
     com.waltz.springshirostudy.mapper: debug
 
 
-system.config.filterExclude: /swagger*,/webjars*,/v2/*,/favicon.ico,/druid*,/upload/*,/O2O_MENU/image/synImg*,/O2O_MENU/bso/*,/O2O_MENU/dicProductCategory/queryCategoryList
+system.config.filterExclude: /swagger*

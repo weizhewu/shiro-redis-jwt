@@ -25,7 +25,7 @@ public class SystemMenuModel implements Serializable {
     // 系统菜单图标
     private String icon;
     // 系统菜单类型：0：目录，1：菜单，2：元素
-    private String menuType;
+    private Integer menuType;
     // 排序
     private Integer sort;
     // 子菜单

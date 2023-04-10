@@ -102,25 +102,19 @@ public class JwtTokenUtil {
                     .setSigningKey(AuthConstant.SECRET_KEY)
                     .parseClaimsJws(authToken);
             String account = claimsJws.getBody().getSubject();
-            System.out.println("redisKey:"+RedisConstant.PREFIX_SHIRO_REFRESH_TOKEN + account);
             if (redisService.existsKey(RedisConstant.PREFIX_SHIRO_REFRESH_TOKEN + account)) {
                 return new JwtToken(account, authToken);
             }
         } catch (SignatureException e) {
-            log.info("JWT验签失败:", e);
             throw new SignatureException(e.getMessage());
         } catch (MalformedJwtException e) {
-            log.info("JWT构造异常:", e);
             throw new MalformedJwtException(e.getMessage());
         } catch (ExpiredJwtException e) {
-            log.info("JWT过期异常:", e);
             throw new ExpiredJwtException(e.getHeader(), e.getClaims(), e.getMessage());
         } catch (UnsupportedJwtException e) {
-            log.info("JWT预期格式不正确:", e);
             throw new UnsupportedJwtException(e.getMessage());
         } catch (IllegalArgumentException e) {
-            log.info("方法参数异常:", e);
-            throw new RuntimeException(e);
+            throw new IllegalArgumentException(e);
         }
         return null;
     }

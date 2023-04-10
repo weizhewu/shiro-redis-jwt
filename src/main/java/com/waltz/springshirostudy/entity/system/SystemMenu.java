@@ -22,14 +22,17 @@ import java.sql.Timestamp;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@Table(tableName = "t_system_menu",keyFields = "menu_id")
+@Table(tableName = "t_system_menu",keyFields = "guid")
 public class SystemMenu {
-    @Column(name = "menu_id",rule = "comment '主键，唯一标识'")
-    @TableId(type = IdType.ASSIGN_UUID)
+    @Column(name = "guid",rule = "comment '主键，唯一标识'")
+    @TableId(type = IdType.AUTO)
+    private Integer guid;
+
+    @Column(name = "menu_id",rule = "not null comment '菜单id'")
     private String menuId;
 
     // 上级菜单id
-    @Column(name = "parent_id",rule = "comment '上级菜单id'")
+    @Column(name = "parent_id",rule = "not null comment '上级菜单id，0时是菜单'")
     private String parentId;
 
     // 菜单名称
@@ -53,7 +56,7 @@ public class SystemMenu {
     private String icon;
 
     // 状态 1：正常 0：禁用
-    @Column(name = "status",rule = "comment '状态 1：正常 0：禁用'")
+    @Column(name = "status",rule = "not null default 1 comment '状态 1：正常 0：禁用'")
     private Integer status;
 
     // 排序
@@ -61,11 +64,11 @@ public class SystemMenu {
     private Integer sort;
 
     // 是否显示
-    @Column(name = "display",rule = "comment '是否显示'")
+    @Column(name = "display",rule = "not null default 1 comment '是否显示'")
     private Integer display;
 
     // 创建人
-    @Column(name = "create_id",rule = "comment '创建人'")
+    @Column(name = "create_id",rule = "not null comment '创建人'")
     private String createId;
 
     // 创建时间
@@ -73,12 +76,10 @@ public class SystemMenu {
     private Timestamp createDate;
 
     // 更新人
-    @Column(name = "update_id",rule = "comment '更新人'")
+    @Column(name = "update_id",rule = "not null comment '更新人'")
     private String updateId;
 
     // 更新时间
     @Column(name = "update_date",rule = "not null default CURRENT_TIMESTAMP comment '更新时间'")
     private Timestamp updateDate;
-
-
 }

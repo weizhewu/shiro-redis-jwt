@@ -18,6 +18,7 @@ import com.waltz.springshirostudy.service.SystemUserService;
 import com.waltz.springshirostudy.utils.number.DifficultPassword;
 import com.waltz.springshirostudy.utils.shiro.ShiroUtils;
 import com.waltz.springshirostudy.utils.token.JwtTokenUtil;
+import org.apache.shiro.authc.IncorrectCredentialsException;
 import org.apache.shiro.authc.LockedAccountException;
 import org.apache.shiro.authc.UnknownAccountException;
 import org.apache.shiro.authc.UsernamePasswordToken;
@@ -110,6 +111,8 @@ public class SystemUserServiceImpl implements SystemUserService {
             return ResponseResult.failure(ResultCode.USER_ACCOUNT_NOT_EXIST);
         } catch (LockedAccountException e) {
             return ResponseResult.failure(ResultCode.USER_ACCOUNT_LOCKED);
+        } catch (IncorrectCredentialsException e){
+            return ResponseResult.failure(ResultCode.USER_PASSWORD_ERROR);
         }
         return ResponseResult.success(accessToken);
     }

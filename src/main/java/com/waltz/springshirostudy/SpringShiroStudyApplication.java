@@ -5,7 +5,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.servlet.ServletComponentScan;
 
-@SpringBootApplication
+@SpringBootApplication(scanBasePackages = {"com.waltz","com.waltz.springshirostudy.exception"})
 @MapperScan(basePackages = {"com.waltz.springshirostudy.mapper"})
 @ServletComponentScan
 public class SpringShiroStudyApplication {

@@ -48,32 +48,25 @@ public class ShiroAuthFilter extends BasicHttpAuthenticationFilter {
      * @throws AuthenticationException 异常
      */
     @Override
-    protected boolean executeLogin(ServletRequest request, ServletResponse response) throws AuthenticationException {
+    protected boolean executeLogin(ServletRequest request, ServletResponse response) {
         String accessToken = this.getAuthzHeader(request);
         if (StringUtils.isBlank(accessToken)) {
             log.error("请求header中accessToken为空");
             response401(response);
             return false;
         }
-        JwtToken token;
+        JwtToken token = null;
         try {
             token = JwtTokenUtil.validateAndGetToken(accessToken);
-        } catch (Exception e) {
-            log.error("validateAndGetToken校验token异常，accessToken：{}", accessToken, e);
+        } catch (Exception e){
+            log.error("异常：{}",e.getMessage());
             response401(response);
             return false;
         }
 
         if (Objects.nonNull(token)) {
             // 提交给realm进行登入，如果错误他会抛出异常并被捕获
-            try {
-                getSubject(request, response).login(token);
-            } catch (Exception e) {
-                log.error("shiro.getSubject登陆异常,token:{}", JSON.toJSONString(token), e);
-                response401(response);
-                return false;
-            }
-            // 如果没有抛出异常则代表登入成功，返回true
+            getSubject(request, response).login(token);
         } else {
             log.error("token为空");
             response401(response);

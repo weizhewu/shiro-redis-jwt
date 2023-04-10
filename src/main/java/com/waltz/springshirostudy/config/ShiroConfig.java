@@ -1,10 +1,8 @@
 package com.waltz.springshirostudy.config;
 
-import com.waltz.springshirostudy.filter.ShiroAuthFilter;
-import com.waltz.springshirostudy.filter.StatelessDefaultSubjectFactory;
-import com.waltz.springshirostudy.filter.StatelessRealm;
-import com.waltz.springshirostudy.filter.UserRealm;
+import com.waltz.springshirostudy.filter.*;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.shiro.authc.pam.AtLeastOneSuccessfulStrategy;
 import org.apache.shiro.authc.pam.FirstSuccessfulStrategy;
 import org.apache.shiro.authc.pam.ModularRealmAuthenticator;
 import org.apache.shiro.mgt.DefaultSessionStorageEvaluator;
@@ -81,13 +79,13 @@ public class ShiroConfig {
         ((DefaultSessionStorageEvaluator) ((DefaultSubjectDAO) securityManager.getSubjectDAO()).getSessionStorageEvaluator()).setSessionStorageEnabled(false);
         log.info("配置realm");
 //        03 设置SecurityManager对象的认证策略
-        ModularRealmAuthenticator modularRealmAuthenticator = new ModularRealmAuthenticator();
-        modularRealmAuthenticator.setAuthenticationStrategy(new FirstSuccessfulStrategy());
-//        modularRealmAuthenticator.setAuthenticationStrategy(new AllSuccessfulStrategy());
-        securityManager.setAuthenticator(modularRealmAuthenticator);
+        MyModularRealmAuthenticator modularRealmAuthenticator = new MyModularRealmAuthenticator();
         //设置两个Realm，一个用于用户登录验证和访问权限获取；一个用于jwt token的认证
         Collection<Realm> realms = new ArrayList<>(Arrays.asList(userRealm(),statelessRealm()));
-        securityManager.setRealms(realms);
+        modularRealmAuthenticator.setRealms(realms);
+        modularRealmAuthenticator.setAuthenticationStrategy(new AtLeastOneSuccessfulStrategy());
+//        modularRealmAuthenticator.setAuthenticationStrategy(new AllSuccessfulStrategy());
+        securityManager.setAuthenticator(modularRealmAuthenticator);
         return securityManager;
     }
 
