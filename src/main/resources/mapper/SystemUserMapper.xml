@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.waltz.springshirostudy.mapper.SystemUserMapper">
+    <select id="listUserPermissionByAccount" parameterType="String" resultType="java.lang.String">
+        SELECT
+            m.perms
+        FROM
+            dm_dic_system_user_role u,
+            dm_dic_system_role_menu r,
+            dm_dic_system_menu m
+        where r.menu_id=m.id
+          and r.role_id=u.role_id
+          and u.account=#{account}
+          and m.display = '0'
+    </select>
+
+</mapper>
